@@ -36,20 +36,17 @@ jobs:
                 distribution: "adopt"
             - name: Instalar Chrome y ChromeDriver para pruebas end to end
               run: |
-                    wget https://dl.google.com/linux/direct/google-chromestable_current_amd64.deb
-                    sudo dpkg -i google-chrome-stable_current_amd64.deb
-                    sudo apt --fix-broken install -y
-                    CHROMEDRIVER_VERSION=$(curl -sS
-                    https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
-                    curl -L -o chromedriver.zip
-                    https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
-                    unzip chromedriver.zip
-                    chmod +x chromedriver
-                    sudo mv chromedriver /usr/local/bin/
-                    - name: Ejecutar la aplicación para pruebas end to end
-                    run: mvn spring-boot:run & sleep 60
-                    - name: Ejecutar las pruebas unitarias, de integración y end to end
-                    run: mvn clean verify
+                wget https://dl.google.com/linux/direct/google-chromestable_current_amd64.deb
+                sudo dpkg -i google-chrome-stable_current_amd64.deb
+                sudo apt --fix-broken install -y CHROMEDRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+                curl -L -o chromedriver.zip https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
+                unzip chromedriver.zip
+                chmod +x chromedriver
+                sudo mv chromedriver /usr/local/bin/
+            - name: Ejecutar la aplicación para pruebas end to end
+              run: mvn spring-boot:run & sleep 60
+            - name: Ejecutar las pruebas unitarias, de integración y end to end
+              run: mvn clean verify
 
     controlar_calidad:
         needs: test
