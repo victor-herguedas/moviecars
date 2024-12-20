@@ -60,7 +60,7 @@ jobs:
           uses: actions/setup-java@v2
           with:
             java-version: "11"
-            distribution: "adopt"
+            distribution: "temurin"
         - name: Construir con Maven
           run: mvn clean package -DskipTests
         - name: Revisar la calidad con Sonarqube
