@@ -1,0 +1,36 @@
+name: Mi primera integración continua
+
+on: push
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: empaquetado
+              run: echo "Empaquetando el proyecto"
+
+    test:
+        needs: build
+        runs-on: ubuntu-latest
+        steps:
+            - name: pruebas
+              run: echo "Ejecutando los tests"
+
+    controlar_calidad:
+        needs: test
+        runs-on: ubuntu-latest
+        steps:
+            - name: calidad
+              run: echo "Controlando la calidad del código"
+
+    deploy:
+        needs: test
+        runs-on: ubuntu-latest
+        steps:
+            - name: despliegue
+              run: echo "Desplegando la aplicación"
+
+            - name: notificación
+              run: echo "Notificando el despliegue"
+              if: always()
+    
