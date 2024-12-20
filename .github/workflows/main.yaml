@@ -16,7 +16,7 @@ jobs:
             - name: Construir con maven
               run: |
                 mvn clean package -DskipTests
-                ls /target
+                ls ./target
             - name: Guardar paquete .jar para después desplegar
               uses: actions/upload-artifact@v4
               with:
