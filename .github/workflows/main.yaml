@@ -61,6 +61,7 @@ jobs:
           with:
             java-version: "11"
             distribution: "temurin"
+            architecture: "arm64"
         - name: Construir con Maven
           run: mvn clean package -DskipTests
         - name: Revisar la calidad con Sonarqube
