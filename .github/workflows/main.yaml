@@ -22,6 +22,8 @@ jobs:
               with:
                 name: moviecards-java
                 path: "${{ github.workspace }}/target/*.jar"
+            - name: Verificar contenido de la carpeta target
+              run: ls -la ${{ github.workspace }}/target
 
     test:
         needs: build
@@ -76,6 +78,8 @@ jobs:
           name: 'Production'
           url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
         steps:
+            - name: Verificar contenido de la carpeta target
+              run: ls -la ${{ github.workspace }}/target
             - name: despliegue
               uses: actions/download-artifact@v3
               with:
