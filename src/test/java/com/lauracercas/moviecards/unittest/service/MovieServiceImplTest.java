@@ -17,65 +17,63 @@ import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
 
 /**
- * Autor: Laura Cercas Ramos
- * Proyecto: TFM Integración Continua con GitHub Actions
- * Fecha: 04/06/2024
+ * Autor: Laura Cercas Ramos Proyecto: TFM Integración Continua con GitHub
+ * Actions Fecha: 04/06/2024
  */
 class MovieServiceImplTest {
-    @Mock
-    private MovieJPA movieJPA;
-    private MovieServiceImpl sut;
-    private AutoCloseable closeable;
+	@Mock
+	private MovieJPA movieJPA;
+	private MovieServiceImpl sut;
+	private AutoCloseable closeable;
 
-    @BeforeEach
-    public void setUp() {
-        closeable = openMocks(this);
-        sut = new MovieServiceImpl(movieJPA);
-    }
+	@BeforeEach
+	public void setUp() {
+		this.closeable = openMocks(this);
+		// sut = new MovieServiceImpl(movieJPA);
+	}
 
-    @AfterEach
-    void tearDown() throws Exception {
-        closeable.close();
-    }
+	@AfterEach
+	void tearDown() throws Exception {
+		this.closeable.close();
+	}
 
-    @Test
-    public void shouldGetAllMovies() {
-        List<Movie> movies = new ArrayList<>();
-        movies.add(new Movie());
-        movies.add(new Movie());
+	@Test
+	public void shouldGetAllMovies() {
+		final List<Movie> movies = new ArrayList<>();
+		movies.add(new Movie());
+		movies.add(new Movie());
 
-        when(movieJPA.findAll()).thenReturn(movies);
+		when(this.movieJPA.findAll()).thenReturn(movies);
 
-        List<Movie> result = sut.getAllMovies();
+		final List<Movie> result = this.sut.getAllMovies();
 
-        assertEquals(2, result.size());
-    }
+		assertEquals(2, result.size());
+	}
 
-    @Test
-    public void shouldGetMovieById() {
-        Movie movie = new Movie();
-        movie.setId(1);
-        movie.setTitle("Sample Movie");
+	@Test
+	public void shouldGetMovieById() {
+		final Movie movie = new Movie();
+		movie.setId(1);
+		movie.setTitle("Sample Movie");
 
-        when(movieJPA.getById(anyInt())).thenReturn(movie);
+		when(this.movieJPA.getById(anyInt())).thenReturn(movie);
 
-        Movie result = sut.getMovieById(1);
+		final Movie result = this.sut.getMovieById(1);
 
-        assertEquals(1, result.getId());
-        assertEquals("Sample Movie", result.getTitle());
-    }
+		assertEquals(1, result.getId());
+		assertEquals("Sample Movie", result.getTitle());
+	}
 
-    @Test
-    public void shouldSaveMovie() {
-        Movie movie = new Movie();
-        movie.setTitle("New Movie");
+	@Test
+	public void shouldSaveMovie() {
+		final Movie movie = new Movie();
+		movie.setTitle("New Movie");
 
-        when(movieJPA.save(movie)).thenReturn(movie);
+		when(this.movieJPA.save(movie)).thenReturn(movie);
 
-        Movie result = sut.save(movie);
+		final Movie result = this.sut.save(movie);
 
-        assertEquals("New Movie", result.getTitle());
-    }
-
+		assertEquals("New Movie", result.getTitle());
+	}
 
 }
