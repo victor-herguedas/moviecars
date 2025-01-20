@@ -79,9 +79,11 @@ jobs:
           url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
         steps:
             - name: despliegue
-              uses: actions/download-artifact@v3
+              uses: actions/download-artifact@v4
               with:
                 name: moviecards-java
+                path: ./artifact-dir
+            
             - name: Verificar contenido de la carpeta target
               run: ls -la ${{ github.workspace }}/target
 
@@ -92,5 +94,5 @@ jobs:
                 app-name: 'moviecards-herguedas'
                 slot-name: 'Production'
                 publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5FDD92D60C374B289B2D4063A40E96A9 }}
-                package: '*.jar'
+                package: './artifact-dir/moviecards-0.0.1-SNAPSHOT.jar'
     
