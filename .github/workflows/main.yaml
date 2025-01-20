@@ -78,18 +78,18 @@ jobs:
           name: 'Production'
           url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
         steps:
-            - name: Verificar contenido de la carpeta target
-              run: ls -la ${{ github.workspace }}/target
             - name: despliegue
               uses: actions/download-artifact@v3
               with:
                 name: moviecards-java
+            - name: Verificar contenido de la carpeta target
+              run: ls -la ${{ github.workspace }}/target
 
             - name: Deploy to Azure Web App
               id: deploy-to-webapp
               uses: azure/webapps-deploy@v3
               with:
-                app-name: 'moviecards'
+                app-name: 'moviecards-herguedas'
                 slot-name: 'Production'
                 publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5FDD92D60C374B289B2D4063A40E96A9 }}
                 package: '*.jar'
