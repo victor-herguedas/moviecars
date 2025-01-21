@@ -14,62 +14,63 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
-
 /**
- * Autor: Laura Cercas Ramos
- * Proyecto: TFM Integración Continua con GitHub Actions
- * Fecha: 04/06/2024
+ * Autor: Laura Cercas Ramos Proyecto: TFM Integración Continua con GitHub
+ * Actions Fecha: 04/06/2024
  */
 @Controller
 public class MovieController {
 
-    private final MovieService movieService;
+	private final static String MOVIE = "movie";
+	private final static String TITLE = "title";
+	private final static String MOVIES_FORM = "movies/form";
 
-    public MovieController(MovieService movieService) {
-        this.movieService = movieService;
-    }
+	private final MovieService movieService;
 
-    @GetMapping("movies")
-    public String getMoviesList(Model model) {
-        model.addAttribute("movies", movieService.getAllMovies());
-        return "movies/list";
-    }
+	public MovieController(MovieService movieService) {
+		this.movieService = movieService;
+	}
 
-    @GetMapping("movies/new")
-    public String newMovie(Model model) {
-        model.addAttribute("movie", new Movie());
-        model.addAttribute("title", Messages.NEW_MOVIE_TITLE);
-        return "movies/form";
-    }
+	@GetMapping("movies")
+	public String getMoviesList(Model model) {
+		model.addAttribute("movies", this.movieService.getAllMovies());
+		return "movies/list";
+	}
 
-    @PostMapping("saveMovie")
-    public String saveMovie(@ModelAttribute Movie movie, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "movies/form";
-        }
-        Movie movieSaved = movieService.save(movie);
-        if (movieSaved.getId() != null) {
-            model.addAttribute("message", Messages.UPDATED_MOVIE_SUCCESS);
-        } else {
-            model.addAttribute("message", Messages.SAVED_MOVIE_SUCCESS);
-        }
+	@GetMapping("movies/new")
+	public String newMovie(Model model) {
+		model.addAttribute(MOVIE, new Movie());
+		model.addAttribute(TITLE, Messages.NEW_MOVIE_TITLE);
+		return MOVIES_FORM;
+	}
 
-        model.addAttribute("movie", movieSaved);
-        model.addAttribute("title", Messages.EDIT_MOVIE_TITLE);
-        return "movies/form";
-    }
+	@PostMapping("saveMovie")
+	public String saveMovie(@ModelAttribute Movie movie, BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			return MOVIES_FORM;
+		}
+		final Movie movieSaved = this.movieService.save(movie);
+		if (movieSaved.getId() != null) {
+			model.addAttribute("message", Messages.UPDATED_MOVIE_SUCCESS);
+		} else {
+			model.addAttribute("message", Messages.SAVED_MOVIE_SUCCESS);
+		}
 
-    @GetMapping("editMovie/{movieId}")
-    public String editMovie(@PathVariable Integer movieId, Model model) {
-        Movie movie = movieService.getMovieById(movieId);
-        List<Actor> actors = movie.getActors();
-        model.addAttribute("movie", movie);
-        model.addAttribute("actors", actors);
+		model.addAttribute(MOVIE, movieSaved);
+		model.addAttribute(TITLE, Messages.EDIT_MOVIE_TITLE);
+		return MOVIES_FORM;
+	}
 
-        model.addAttribute("title", Messages.EDIT_MOVIE_TITLE);
+	@GetMapping("editMovie/{movieId}")
+	public String editMovie(@PathVariable Integer movieId, Model model) {
+		final Movie movie = this.movieService.getMovieById(movieId);
+		final List<Actor> actors = movie.getActors();
+		model.addAttribute(MOVIE, movie);
+		model.addAttribute("actors", actors);
 
-        return "movies/form";
-    }
+		model.addAttribute(TITLE, Messages.EDIT_MOVIE_TITLE);
 
+		return MOVIES_FORM;
+	}
 
 }
