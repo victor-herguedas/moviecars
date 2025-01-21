@@ -52,7 +52,7 @@ jobs:
               run: mvn clean verify
 
     qa:
-        needs: test
+        needs: build
         runs-on: self-hosted
         continue-on-error: true
         steps:
@@ -95,4 +95,4 @@ jobs:
                 slot-name: 'Production'
                 publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5FDD92D60C374B289B2D4063A40E96A9 }}
                 package: '*.jar'
-    
+
