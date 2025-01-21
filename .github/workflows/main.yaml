@@ -71,7 +71,7 @@ jobs:
               mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.qualitygate.wait=true -Dsonar.login=admin -Dsonar.password=admin1
 
     deploy:
-        needs:  build
+        needs:  test
         runs-on: ubuntu-latest
         if: github.ref=='refs/heads/main'
         environment:
