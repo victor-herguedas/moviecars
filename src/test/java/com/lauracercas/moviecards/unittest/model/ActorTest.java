@@ -1,54 +1,60 @@
 package com.lauracercas.moviecards.unittest.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.lauracercas.moviecards.model.Actor;
+import com.lauracercas.moviecards.model.Movie;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
-
-import com.lauracercas.moviecards.model.Actor;
-import com.lauracercas.moviecards.model.Movie;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ActorTest {
 
-    Actor actor = new Actor();
+	Actor actor = new Actor();
 
-    @Test
-    void testSetGetId() {
-        Integer idExample = 1;
-        actor.setId(idExample);
-        assertEquals(idExample, actor.getId());
-    }
+	@Test
+	void testSetGetId() {
+		final Integer idExample = 1;
+		this.actor.setId(idExample);
+		assertEquals(idExample, this.actor.getId());
+	}
 
-    @Test
-    void testSetGetName() {
-        String nameExample = "Sample name";
-        actor.setName(nameExample);
-        assertEquals(nameExample, actor.getName());
-    }
+	@Test
+	void testSetGetName() {
+		final String nameExample = "Sample name";
+		this.actor.setName(nameExample);
+		assertEquals(nameExample, this.actor.getName());
+	}
 
-    @Test
-    void testSetGetBirthDate() {
-        Date birthDateExample = new Date();
-        actor.setBirthDate(birthDateExample);
-        assertEquals(birthDateExample, actor.getBirthDate());
-    }
+	@Test
+	void testSetGetBirthDate() {
+		final Date birthDateExample = new Date();
+		this.actor.setBirthDate(birthDateExample);
+		assertEquals(birthDateExample, this.actor.getBirthDate());
+	}
 
-    @Test
-    void testSetGetCountry() {
-        String countryExample = "Sample country";
-        actor.setCountry(countryExample);
-        assertEquals(countryExample, actor.getCountry());
+	@Test
+	void testSetGetDeadDate() {
+		final Date deadDate = new Date();
+		this.actor.setBirthDate(deadDate);
+		assertEquals(deadDate, this.actor.getBirthDate());
+	}
 
-    }
+	@Test
+	void testSetGetCountry() {
+		final String countryExample = "Sample country";
+		this.actor.setCountry(countryExample);
+		assertEquals(countryExample, this.actor.getCountry());
 
-    @Test
-    void testSetGetMovies() {
-        List<Movie> moviesExample = new ArrayList<Movie>();
-        actor.setMovies(moviesExample);
-        assertEquals(moviesExample, actor.getMovies());
-    }
+	}
+
+	@Test
+	void testSetGetMovies() {
+		final List<Movie> moviesExample = new ArrayList<Movie>();
+		this.actor.setMovies(moviesExample);
+		assertEquals(moviesExample, this.actor.getMovies());
+	}
 
 }
