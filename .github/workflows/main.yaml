@@ -88,7 +88,7 @@ jobs:
           uses: azure/webapps-deploy@v3
           with:
             app-name: 'moviecards-pre-herguedas'
-            slot-name: 'Pre'
+            slot-name: 'Production'
             package: '*.jar'
             publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_EA244A06BA3441FB911F233AAE879A0E }}
 
