@@ -15,67 +15,67 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * Autor: Laura Cercas Ramos
- * Proyecto: TFM Integración Continua con GitHub Actions
- * Fecha: 04/06/2024
+ * Autor: Laura Cercas Ramos Proyecto: TFM Integración Continua con GitHub
+ * Actions Fecha: 04/06/2024
  */
 public class ActorE2ETest {
 
-    private WebDriver driver;
+	private WebDriver driver;
 
-    @BeforeEach
-    void setUp() {
-        WebDriverManager.chromedriver().setup();
+	@BeforeEach
+	void setUp() {
+		WebDriverManager.chromedriver().setup();
 
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--headless");
+		final ChromeOptions options = new ChromeOptions();
+		options.addArguments("--no-sandbox");
+		options.addArguments("--disable-dev-shm-usage");
+		options.addArguments("--headless");
 
-        driver = new ChromeDriver(options);
-    }
+		this.driver = new ChromeDriver(options);
+	}
 
-    @AfterEach
-    void tearDown() {
-        driver.quit();
-    }
+	@AfterEach
+	void tearDown() {
+		this.driver.quit();
+	}
 
-    @Test
-    public void testPageLoad() {
-        driver.get("http://localhost:8089/actors/new");
-        assertEquals("FichasPeliculasApp | Aplicación de gestión de fichas de películas", driver.getTitle());
+	@Test
+	public void testPageLoad() {
+		this.driver.get("http://localhost:8089/actors/new");
+		assertEquals("FichasPeliculasApp | Aplicación de gestión de fichas de películas", this.driver.getTitle());
 
-        assertTrue(driver.findElement(By.id("name")).isDisplayed());
-        assertTrue(driver.findElement(By.id("birthDate")).isDisplayed());
-        assertTrue(driver.findElement(By.id("country")).isDisplayed());
+		assertTrue(this.driver.findElement(By.id("name")).isDisplayed());
+		assertTrue(this.driver.findElement(By.id("birthDate")).isDisplayed());
+		assertTrue(this.driver.findElement(By.id("country")).isDisplayed());
 
-    }
+	}
 
-    @Test
-    public void testNewActorTitle() {
-        driver.get("http://localhost:8089/actors/new");
-        WebElement title = driver.findElement(By.className("title"));
-        assertEquals(NEW_ACTOR_TITLE, title.getText());
-    }
+	@Test
+	public void testNewActorTitle() {
+		this.driver.get("http://localhost:8089/actors/new");
+		final WebElement title = this.driver.findElement(By.className("title"));
+		assertEquals(NEW_ACTOR_TITLE, title.getText());
+	}
 
-    @Test
-    public void testListActors() {
-        driver.get("http://localhost:8089/actors");
-        WebElement title = driver.findElement(By.className("card-header"));
-        assertEquals("Listado Actores", title.getText());
+	@Test
+	public void testListActors() {
+		this.driver.get("http://localhost:8089/actors");
+		final WebElement title = this.driver.findElement(By.className("card-header"));
+		assertEquals("Listado Actores", title.getText());
 
-        WebElement table = driver.findElement(By.className("table-hover"));
+		final WebElement table = this.driver.findElement(By.className("table-hover"));
 
-        WebElement thead = table.findElement(By.tagName("thead"));
-        assertTrue(thead.isDisplayed());
+		final WebElement thead = table.findElement(By.tagName("thead"));
+		assertTrue(thead.isDisplayed());
 
-        WebElement headerRow = thead.findElement(By.tagName("tr"));
-        assertEquals("Identificador", headerRow.findElements(By.tagName("th")).get(0).getText());
-        assertEquals("Nombre", headerRow.findElements(By.tagName("th")).get(1).getText());
-        assertEquals("Fecha Nacimiento", headerRow.findElements(By.tagName("th")).get(2).getText());
-        assertEquals("Pais", headerRow.findElements(By.tagName("th")).get(3).getText());
-        assertEquals("Editar", headerRow.findElements(By.tagName("th")).get(4).getText());
+		final WebElement headerRow = thead.findElement(By.tagName("tr"));
+		assertEquals("Identificador", headerRow.findElements(By.tagName("th")).get(0).getText());
+		assertEquals("Nombre", headerRow.findElements(By.tagName("th")).get(1).getText());
+		assertEquals("Fecha Nacimiento", headerRow.findElements(By.tagName("th")).get(2).getText());
+		assertEquals("Fecha Fallecimiento", headerRow.findElements(By.tagName("th")).get(3).getText());
+		assertEquals("Pais", headerRow.findElements(By.tagName("th")).get(4).getText());
+		assertEquals("Editar", headerRow.findElements(By.tagName("th")).get(5).getText());
 
-    }
+	}
 
 }
