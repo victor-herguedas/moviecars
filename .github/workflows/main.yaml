@@ -52,7 +52,7 @@ jobs:
               run: mvn clean verify
 
     qa:
-        needs: build
+        needs: test
         runs-on: self-hosted
         continue-on-error: true
         steps:
@@ -71,7 +71,7 @@ jobs:
               mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.qualitygate.wait=true -Dsonar.login=admin -Dsonar.password=admin1
 
     deploy:
-        needs:  qa
+        needs:  build
         runs-on: ubuntu-latest
         if: github.ref=='refs/heads/main'
         environment:
