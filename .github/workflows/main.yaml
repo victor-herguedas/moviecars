@@ -70,6 +70,28 @@ jobs:
             run: |
               mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.qualitygate.wait=true -Dsonar.login=admin -Dsonar.password=admin1
 
+    stage:
+      runs-on: ubuntu-latest
+      needs: test
+      environment:
+        name: 'Pre'
+        url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+      steps:
+        - name: descarga de artefacto
+          uses: actions/download-artifact@v4
+          with:
+            name: moviecards-java
+
+        - name: Deploy to Azure Web App
+          id: deploy-to-webapp
+          uses: azure/webapps-deploy@v3
+          with:
+            app-name: 'moviecards-pre-herguedas'
+            slot-name: 'Pre'
+            package: '*.jar'
+            publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_EA244A06BA3441FB911F233AAE879A0E }}
+
     deploy:
         needs:  test
         runs-on: ubuntu-latest
@@ -78,7 +100,7 @@ jobs:
           name: 'Production'
           url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
         steps:
-            - name: despliegue
+            - name: descarga de artefacto
               uses: actions/download-artifact@v4
               with:
                 name: moviecards-java
