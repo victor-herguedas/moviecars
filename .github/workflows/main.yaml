@@ -54,7 +54,6 @@ jobs:
     qa:
         needs: test
         runs-on: self-hosted
-        continue-on-error: true
         steps:
           - name: Descargar repositorio
             uses: actions/checkout@v2
@@ -72,7 +71,7 @@ jobs:
 
     stage:
       runs-on: ubuntu-latest
-      needs: test
+      needs: qa
       environment:
         name: 'Pre'
         url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
@@ -93,7 +92,7 @@ jobs:
             publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_EA244A06BA3441FB911F233AAE879A0E }}
 
     deploy:
-        needs:  test
+        needs:  qa
         runs-on: ubuntu-latest
         if: github.ref=='refs/heads/main'
         environment:
