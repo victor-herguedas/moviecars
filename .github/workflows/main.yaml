@@ -71,7 +71,7 @@ jobs:
               mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.qualitygate.wait=true -Dsonar.login=admin -Dsonar.password=admin1
 
     deploy:
-        needs:  qa
+        needs:  build
         runs-on: ubuntu-latest
         if: github.ref=='refs/heads/main'
         environment:
@@ -95,4 +95,4 @@ jobs:
                 slot-name: 'Production'
                 publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5FDD92D60C374B289B2D4063A40E96A9 }}
                 package: '*.jar'
-    
+
